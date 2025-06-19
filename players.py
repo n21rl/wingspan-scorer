@@ -34,9 +34,9 @@ def manage_players():
                 st.text("")
                 st.text("")
                 path = edit_data['Picture']
-                if not(isinstance(picture_path, str) and os.path.exists(picture_path)):
+                if not (isinstance(path, str) and os.path.exists(path)):
                     path = "images/_default.png"
-                st.image(picture_path, width=80, caption="Current Picture")
+                st.image(path, width=80, caption="Current Picture")
 
             if st.form_submit_button("Save"):
                 if player_name:
