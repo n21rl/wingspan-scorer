@@ -153,7 +153,9 @@ def connect(path: str | os.PathLike[str] | None = None) -> sqlite3.Connection:
     target = resolve_path(path)
     if str(target) != ":memory:":
         target.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(target, isolation_level=None)
+    # check_same_thread=False: Streamlit reruns the script on a different
+    # thread than the one that opened the cached connection.
+    conn = sqlite3.connect(target, isolation_level=None, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     conn.execute("PRAGMA journal_mode = WAL")
