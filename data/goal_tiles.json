@@ -1,0 +1,567 @@
+{
+  "_comment": "Derived from the Wingsearch dataset (https://github.com/navarog/wingsearch), built on TawnyFrogmouth's Wingspan spreadsheet. Factual game data only.",
+  "kind": "goal_tiles",
+  "count": 56,
+  "entries": [
+    {
+      "id": "g2051",
+      "name": "Bee",
+      "expansion": "Americas",
+      "green_description": "bee",
+      "blue_description": "emerald",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2051
+    },
+    {
+      "id": "g2046",
+      "name": "Birds worth EVEN points (0, 2, 4, 6, 8)",
+      "expansion": "Americas",
+      "green_description": "Birds worth EVEN points (0, 2, 4, 6, 8)",
+      "blue_description": "Birds worth ODD points (1, 3, 5, 7, 9)",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2046
+    },
+    {
+      "id": "g2047",
+      "name": "Birds worth ODD points (1, 3, 5, 7, 9)",
+      "expansion": "Americas",
+      "green_description": "Birds worth ODD points (1, 3, 5, 7, 9)",
+      "blue_description": "Birds worth EVEN points (0, 2, 4, 6, 8)",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2047
+    },
+    {
+      "id": "g2052",
+      "name": "Brilliant",
+      "expansion": "Americas",
+      "green_description": "brilliant",
+      "blue_description": "topaz",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2052
+    },
+    {
+      "id": "g2048",
+      "name": "Different point values on birds",
+      "expansion": "Americas",
+      "green_description": "Different point values on birds",
+      "blue_description": "Total of egg limits (blue side: ÷ 5)",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2048
+    },
+    {
+      "id": "g2053",
+      "name": "Emerald",
+      "expansion": "Americas",
+      "green_description": "emerald",
+      "blue_description": "bee",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2053
+    },
+    {
+      "id": "g2049",
+      "name": "Hummingbird Points",
+      "expansion": "Americas",
+      "green_description": "Hummingbird Points",
+      "blue_description": "mango",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2049
+    },
+    {
+      "id": "g2054",
+      "name": "Mango",
+      "expansion": "Americas",
+      "green_description": "mango",
+      "blue_description": "Hummingbird Points",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2054
+    },
+    {
+      "id": "g2055",
+      "name": "Topaz",
+      "expansion": "Americas",
+      "green_description": "topaz",
+      "blue_description": "brilliant",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2055
+    },
+    {
+      "id": "g2050",
+      "name": "Total of egg limits (blue side: ÷ 5)",
+      "expansion": "Americas",
+      "green_description": "Total of egg limits (blue side: ÷ 5)",
+      "blue_description": "Different point values on birds",
+      "family": "eggs",
+      "scoring_type": "placement",
+      "source_id": 2050
+    },
+    {
+      "id": "g2037",
+      "name": "Duet token in any one horizontal row",
+      "expansion": "Asia",
+      "green_description": "duet token in any one horizontal row",
+      "blue_description": "horizontal rows with at least 1 of your duet token",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2037
+    },
+    {
+      "id": "g2034",
+      "name": "Duet token in forest",
+      "expansion": "Asia",
+      "green_description": "duet token in forest",
+      "blue_description": "duet token on pairs of matching symbols",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2034
+    },
+    {
+      "id": "g2035",
+      "name": "Duet token in grassland",
+      "expansion": "Asia",
+      "green_description": "duet token in grassland",
+      "blue_description": "total duet token on map",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2035
+    },
+    {
+      "id": "g2036",
+      "name": "Duet token in wetland",
+      "expansion": "Asia",
+      "green_description": "duet token in wetland",
+      "blue_description": "fewest duet token on bonus spaces",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2036
+    },
+    {
+      "id": "g2038",
+      "name": "Duet token not on edge of map",
+      "expansion": "Asia",
+      "green_description": "duet token not on edge of map",
+      "blue_description": "duet token on edge of map",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2038
+    },
+    {
+      "id": "g2039",
+      "name": "Duet token on bowl-nest cavity-nest ground-nest platform-nest",
+      "expansion": "Asia",
+      "green_description": "duet token on bowl-nest cavity-nest ground-nest platform-nest",
+      "blue_description": "duet token on fish fruit rodent seed invertebrate",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2039
+    },
+    {
+      "id": "g2041",
+      "name": "Duet token on edge of map",
+      "expansion": "Asia",
+      "green_description": "duet token on edge of map",
+      "blue_description": "duet token not on edge of map",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2041
+    },
+    {
+      "id": "g2040",
+      "name": "Duet token on fish fruit rodent seed invertebrate",
+      "expansion": "Asia",
+      "green_description": "duet token on fish fruit rodent seed invertebrate",
+      "blue_description": "duet token on bowl-nest cavity-nest ground-nest platform-nest",
+      "family": "food",
+      "scoring_type": "placement",
+      "source_id": 2040
+    },
+    {
+      "id": "g2042",
+      "name": "Duet token on pairs of matching symbols",
+      "expansion": "Asia",
+      "green_description": "duet token on pairs of matching symbols",
+      "blue_description": "duet token in forest",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2042
+    },
+    {
+      "id": "g2043",
+      "name": "Fewest duet token on bonus spaces",
+      "expansion": "Asia",
+      "green_description": "fewest duet token on bonus spaces",
+      "blue_description": "duet token in wetland",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2043
+    },
+    {
+      "id": "g2044",
+      "name": "Horizontal rows with at least 1 of your duet token",
+      "expansion": "Asia",
+      "green_description": "horizontal rows with at least 1 of your duet token",
+      "blue_description": "duet token in any one horizontal row",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2044
+    },
+    {
+      "id": "g2045",
+      "name": "Total duet token on map",
+      "expansion": "Asia",
+      "green_description": "total duet token on map",
+      "blue_description": "duet token in grassland",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2045
+    },
+    {
+      "id": "g2000",
+      "name": "Birds in forest",
+      "expansion": "Base Game",
+      "green_description": "birds in forest",
+      "blue_description": "eggs in forest",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2000
+    },
+    {
+      "id": "g2001",
+      "name": "Birds in grassland",
+      "expansion": "Base Game",
+      "green_description": "birds in grassland",
+      "blue_description": "eggs in grassland",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2001
+    },
+    {
+      "id": "g2002",
+      "name": "Birds in wetland",
+      "expansion": "Base Game",
+      "green_description": "birds in wetland",
+      "blue_description": "eggs in wetland",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2002
+    },
+    {
+      "id": "g2007",
+      "name": "Bowl-nest birds with eggs",
+      "expansion": "Base Game",
+      "green_description": "bowl-nest birds with eggs",
+      "blue_description": "eggs in bowl-nest",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2007
+    },
+    {
+      "id": "g2009",
+      "name": "Cavity-nest birds with eggs",
+      "expansion": "Base Game",
+      "green_description": "cavity-nest birds with eggs",
+      "blue_description": "eggs in cavity-nest",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2009
+    },
+    {
+      "id": "g2010",
+      "name": "Eggs in bowl-nest",
+      "expansion": "Base Game",
+      "green_description": "eggs in bowl-nest",
+      "blue_description": "bowl-nest birds with eggs",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2010
+    },
+    {
+      "id": "g2011",
+      "name": "Eggs in cavity-nest",
+      "expansion": "Base Game",
+      "green_description": "eggs in cavity-nest",
+      "blue_description": "cavity-nest birds with eggs",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2011
+    },
+    {
+      "id": "g2012",
+      "name": "Eggs in forest",
+      "expansion": "Base Game",
+      "green_description": "eggs in forest",
+      "blue_description": "birds in forest",
+      "family": "eggs",
+      "scoring_type": "placement",
+      "source_id": 2012
+    },
+    {
+      "id": "g2013",
+      "name": "Eggs in grassland",
+      "expansion": "Base Game",
+      "green_description": "eggs in grassland",
+      "blue_description": "birds in grassland",
+      "family": "eggs",
+      "scoring_type": "placement",
+      "source_id": 2013
+    },
+    {
+      "id": "g2014",
+      "name": "Eggs in ground-nest",
+      "expansion": "Base Game",
+      "green_description": "eggs in ground-nest",
+      "blue_description": "ground-nest birds with eggs",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2014
+    },
+    {
+      "id": "g2015",
+      "name": "Eggs in platform-nest",
+      "expansion": "Base Game",
+      "green_description": "eggs in platform-nest",
+      "blue_description": "goal birds with platform-nest",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2015
+    },
+    {
+      "id": "g2016",
+      "name": "Eggs in wetland",
+      "expansion": "Base Game",
+      "green_description": "eggs in wetland",
+      "blue_description": "birds in wetland",
+      "family": "eggs",
+      "scoring_type": "placement",
+      "source_id": 2016
+    },
+    {
+      "id": "g2017",
+      "name": "Ground-nest birds with eggs",
+      "expansion": "Base Game",
+      "green_description": "ground-nest birds with eggs",
+      "blue_description": "eggs in ground-nest",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2017
+    },
+    {
+      "id": "g2018",
+      "name": "Platform-nest birds with eggs",
+      "expansion": "Base Game",
+      "green_description": "platform-nest birds with eggs",
+      "blue_description": "eggs in platform-nest",
+      "family": "nests",
+      "scoring_type": "placement",
+      "source_id": 2018
+    },
+    {
+      "id": "g2023",
+      "name": "Sets of 3 eggs in wetland grassland forest",
+      "expansion": "Base Game",
+      "green_description": "sets of 3 eggs in wetland grassland forest",
+      "blue_description": "total birds",
+      "family": "eggs",
+      "scoring_type": "placement",
+      "source_id": 2023
+    },
+    {
+      "id": "g2024",
+      "name": "Total birds",
+      "expansion": "Base Game",
+      "green_description": "total birds",
+      "blue_description": "sets of 3 eggs in wetland grassland forest",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2024
+    },
+    {
+      "id": "g2006",
+      "name": "Bird with tucked cards birds with tucked cards",
+      "expansion": "Europe",
+      "green_description": "bird with tucked cards birds with tucked cards",
+      "blue_description": "food cost of played birds",
+      "family": "cards",
+      "scoring_type": "placement",
+      "source_id": 2006
+    },
+    {
+      "id": "g2003",
+      "name": "Birds in one row",
+      "expansion": "Europe",
+      "green_description": "birds in one row",
+      "blue_description": "filled columns",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2003
+    },
+    {
+      "id": "g2004",
+      "name": "Birds with no eggs",
+      "expansion": "Europe",
+      "green_description": "birds with no eggs",
+      "blue_description": "birds worth >4 VP",
+      "family": "eggs",
+      "scoring_type": "placement",
+      "source_id": 2004
+    },
+    {
+      "id": "g2005",
+      "name": "Birds worth >4 VP",
+      "expansion": "Europe",
+      "green_description": "birds worth >4 VP",
+      "blue_description": "birds with no eggs",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2005
+    },
+    {
+      "id": "g2020",
+      "name": "Brown powers",
+      "expansion": "Europe",
+      "green_description": "brown powers",
+      "blue_description": "white & no powers",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2020
+    },
+    {
+      "id": "g2008",
+      "name": "Cards in hand",
+      "expansion": "Europe",
+      "green_description": "cards in hand",
+      "blue_description": "food in personal supply",
+      "family": "cards",
+      "scoring_type": "placement",
+      "source_id": 2008
+    },
+    {
+      "id": "g2021",
+      "name": "Filled columns",
+      "expansion": "Europe",
+      "green_description": "filled columns",
+      "blue_description": "birds in one row",
+      "family": "habitat",
+      "scoring_type": "placement",
+      "source_id": 2021
+    },
+    {
+      "id": "g2022",
+      "name": "Food cost of played birds",
+      "expansion": "Europe",
+      "green_description": "food cost of played birds",
+      "blue_description": "bird with tucked cards birds with tucked cards",
+      "family": "food",
+      "scoring_type": "placement",
+      "source_id": 2022
+    },
+    {
+      "id": "g2019",
+      "name": "Food in personal supply",
+      "expansion": "Europe",
+      "green_description": "food in personal supply",
+      "blue_description": "cards in hand",
+      "family": "food",
+      "scoring_type": "placement",
+      "source_id": 2019
+    },
+    {
+      "id": "g2025",
+      "name": "White & no powers",
+      "expansion": "Europe",
+      "green_description": "white & no powers",
+      "blue_description": "brown powers",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2025
+    },
+    {
+      "id": "g2026",
+      "name": "Action cube gray cubes on \"play a bird\"",
+      "expansion": "Oceania",
+      "green_description": "action cube gray cubes on \"play a bird\"",
+      "blue_description": "birds worth ≤3 VP",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2026
+    },
+    {
+      "id": "g2027",
+      "name": "Beak pointing left beak pointing left",
+      "expansion": "Oceania",
+      "green_description": "beak pointing left beak pointing left",
+      "blue_description": "beak pointing right beak pointing right",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2027
+    },
+    {
+      "id": "g2028",
+      "name": "Beak pointing right beak pointing right",
+      "expansion": "Oceania",
+      "green_description": "beak pointing right beak pointing right",
+      "blue_description": "beak pointing left beak pointing left",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2028
+    },
+    {
+      "id": "g2029",
+      "name": "Birds worth ≤3 VP",
+      "expansion": "Oceania",
+      "green_description": "birds worth ≤3 VP",
+      "blue_description": "action cube gray cubes on \"play a bird\"",
+      "family": "birds",
+      "scoring_type": "placement",
+      "source_id": 2029
+    },
+    {
+      "id": "g2030",
+      "name": "Fruit + seed in food cost of your birds",
+      "expansion": "Oceania",
+      "green_description": "fruit + seed in food cost of your birds",
+      "blue_description": "invertebrate in food cost of your birds",
+      "family": "food",
+      "scoring_type": "placement",
+      "source_id": 2030
+    },
+    {
+      "id": "g2031",
+      "name": "Invertebrate in food cost of your birds",
+      "expansion": "Oceania",
+      "green_description": "invertebrate in food cost of your birds",
+      "blue_description": "fruit + seed in food cost of your birds",
+      "family": "food",
+      "scoring_type": "placement",
+      "source_id": 2031
+    },
+    {
+      "id": "g2033",
+      "name": "No goal",
+      "expansion": "Oceania",
+      "green_description": "no goal",
+      "blue_description": "rodent + fish in food cost of your birds",
+      "family": "other",
+      "scoring_type": "placement",
+      "source_id": 2033
+    },
+    {
+      "id": "g2032",
+      "name": "Rodent + fish in food cost of your birds",
+      "expansion": "Oceania",
+      "green_description": "rodent + fish in food cost of your birds",
+      "blue_description": "no goal",
+      "family": "food",
+      "scoring_type": "placement",
+      "source_id": 2032
+    }
+  ]
+}

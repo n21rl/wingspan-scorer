@@ -1,0 +1,138 @@
+"""Player management."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import streamlit as st
+
+from views._shared import get_connection, player_chip
+from wingspan.db import ROOT
+from wingspan.model import Player
+from wingspan import repository
+
+IMAGES_DIR = ROOT / "images"
+DEFAULT_AVATAR = IMAGES_DIR / "_default.png"
+
+conn = get_connection()
+
+st.title("Players")
+
+
+def avatar_path(player: Player) -> Path:
+    """Resolve a stored avatar to a real file.
+
+    Avatars are stored as a bare filename under images/. The old app stored
+    Windows-style paths, which never resolved on any other platform and left
+    every player showing the placeholder.
+    """
+    if player.avatar:
+        candidate = IMAGES_DIR / Path(str(player.avatar).replace("\\", "/")).name
+        if candidate.exists():
+            return candidate
+    return DEFAULT_AVATAR
+
+
+def save_avatar(player_id: str, upload) -> str:
+    IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    name = f"{player_id}_{Path(upload.name).name}"
+    (IMAGES_DIR / name).write_bytes(upload.getbuffer())
+    return name
+
+
+@st.dialog("Edit player")
+def edit_player(player: Player) -> None:
+    with st.form(f"edit_{player.id}", border=False, enter_to_submit=False):
+        name = st.text_input("Name", value=player.name)
+        color = st.color_picker(
+            "Colour", value=player.color, help="Used for this player in every chart."
+        )
+        upload = st.file_uploader("Picture", type=["png", "jpg", "jpeg"])
+        if DEFAULT_AVATAR.exists() or player.avatar:
+            st.image(str(avatar_path(player)), width=72, caption="Current")
+
+        archived = st.checkbox(
+            "Archived",
+            value=player.archived,
+            help="Hidden from new games. Their past games are kept.",
+        )
+
+        if st.form_submit_button("Save", type="primary", width="stretch"):
+            if not name.strip():
+                st.error("A player needs a name.")
+                return
+            player.name = name.strip()
+            player.color = color
+            player.archived = archived
+            if upload is not None:
+                player.avatar = save_avatar(player.id, upload)
+            repository.save_player(conn, player)
+            st.rerun()
+
+
+@st.dialog("Remove player")
+def remove_player(player: Player) -> None:
+    played = repository.player_game_count(conn, player.id)
+    if played:
+        st.write(
+            f"**{player.name}** appears in {played} game(s). Deleting them would take that "
+            "history with them, so they will be archived instead — hidden from new games, "
+            "past games untouched."
+        )
+        label = "Archive"
+    else:
+        st.write(f"Delete **{player.name}**? They have not played a game yet.")
+        label = "Delete"
+
+    if st.button(label, type="primary", width="stretch"):
+        repository.delete_player(conn, player.id)
+        st.rerun()
+
+
+@st.dialog("Add player")
+def add_player() -> None:
+    with st.form("create_player", border=False, enter_to_submit=False):
+        name = st.text_input("Name")
+        color = st.color_picker("Colour", value="#2a78d6")
+        upload = st.file_uploader("Picture", type=["png", "jpg", "jpeg"])
+
+        if st.form_submit_button("Add", type="primary", width="stretch"):
+            if not name.strip():
+                st.error("A player needs a name.")
+                return
+            if repository.get_player_by_name(conn, name.strip()):
+                st.error(f"There is already a player called {name.strip()}.")
+                return
+
+            player = Player.new(name.strip(), color)
+            if upload is not None:
+                player.avatar = save_avatar(player.id, upload)
+            repository.save_player(conn, player)
+            st.rerun()
+
+
+players = repository.list_players(conn, include_archived=True)
+
+if not players:
+    st.caption("No players yet. Add the people you play with to start recording games.")
+
+for player in players:
+    with st.container(border=True):
+        head, actions = st.columns([3, 2])
+        with head:
+            st.image(str(avatar_path(player)), width=44)
+            st.markdown(
+                player_chip(f"**{player.name}**", player.color), unsafe_allow_html=True
+            )
+            played = repository.player_game_count(conn, player.id)
+            suffix = " · archived" if player.archived else ""
+            st.caption(f"{played} game(s){suffix}")
+
+        with actions:
+            if st.button("Edit", key=f"e_{player.id}", width="stretch"):
+                edit_player(player)
+            if st.button("Remove", key=f"d_{player.id}", width="stretch"):
+                remove_player(player)
+
+if st.button("Add player", type="primary", width="stretch"):
+    add_player()

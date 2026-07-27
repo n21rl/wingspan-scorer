@@ -1,0 +1,617 @@
+{
+  "_comment": "Derived from the Wingsearch dataset (https://github.com/navarog/wingsearch), built on TawnyFrogmouth's Wingspan spreadsheet. Factual game data only.",
+  "kind": "bonus_cards",
+  "count": 61,
+  "entries": [
+    {
+      "id": "b1052",
+      "name": "Apiarist",
+      "expansion": "Americas",
+      "condition": "Point value of your bee token",
+      "description": "",
+      "vp_text": "3 to 4 points: 3 VP; 6 to 8 points: 4 VP; 10 points: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1052
+    },
+    {
+      "id": "b1053",
+      "name": "Brilliant Specialist",
+      "expansion": "Americas",
+      "condition": "Point value of your brilliant token",
+      "description": "",
+      "vp_text": "3 to 4 points: 3 VP; 6 to 8 points: 4 VP; 10 points: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1053
+    },
+    {
+      "id": "b1054",
+      "name": "Ecolodge Owner",
+      "expansion": "Americas",
+      "condition": "Score more if your hummingbirds are close in value. Compare the points values of your highest and lowest tokens. If the difference is:",
+      "description": "",
+      "vp_text": "0 to 2 points: 6 VP; 3 points: 3 VP; 4+ points: 0 VP",
+      "scoring_type": "tiered",
+      "source_id": 1054
+    },
+    {
+      "id": "b1055",
+      "name": "Emerald Specialist",
+      "expansion": "Americas",
+      "condition": "Point value of your emerald token",
+      "description": "",
+      "vp_text": "3 to 4 points: 3 VP; 6 to 8 points: 4 VP; 10 points: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1055
+    },
+    {
+      "id": "b1056",
+      "name": "Hummingbird Counter",
+      "expansion": "Americas",
+      "condition": "hummingbird spaces that you reached on your hummingbird track",
+      "description": "",
+      "vp_text": "1 VP each",
+      "scoring_type": "tiered",
+      "source_id": 1056
+    },
+    {
+      "id": "b1057",
+      "name": "Hummingbird Gardener",
+      "expansion": "Americas",
+      "condition": "Hummingbird tokens worth at least 4 points",
+      "description": "",
+      "vp_text": "2 VP each",
+      "scoring_type": "tiered",
+      "source_id": 1057
+    },
+    {
+      "id": "b1058",
+      "name": "Mango Specialist",
+      "expansion": "Americas",
+      "condition": "Point value of your mango token",
+      "description": "",
+      "vp_text": "3 to 4 points: 3 VP; 6 to 8 points: 4 VP; 10 points: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1058
+    },
+    {
+      "id": "b1059",
+      "name": "Topaz Specialist",
+      "expansion": "Americas",
+      "condition": "Point value of your topaz token",
+      "description": "",
+      "vp_text": "3 to 4 points: 3 VP; 6 to 8 points: 4 VP; 10 points: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1059
+    },
+    {
+      "id": "b1060",
+      "name": "automa Charm Champion",
+      "expansion": "Americas",
+      "condition": "Birds with “Hummingbird” in their power or name",
+      "description": "",
+      "vp_text": "",
+      "scoring_type": "tiered",
+      "source_id": 1060
+    },
+    {
+      "id": "b1039",
+      "name": "Avian Theriogenologist",
+      "expansion": "Asia",
+      "condition": "Birds with completely full nests",
+      "description": "Birds with no egg capacity do not count towards this card",
+      "vp_text": "5 to 6 birds: 4 VP; 7+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1039
+    },
+    {
+      "id": "b1040",
+      "name": "Endangered Species Protector",
+      "expansion": "Asia",
+      "condition": "Birds that allow you to score or draw bonus cards",
+      "description": "",
+      "vp_text": "3 VP each",
+      "scoring_type": "tiered",
+      "source_id": 1040
+    },
+    {
+      "id": "b1041",
+      "name": "Forest Population Monitor",
+      "expansion": "Asia",
+      "condition": "Different nest types in forest",
+      "description": "You may count each star nest as any other type or as a fifth type.",
+      "vp_text": "2 to 3 types: 3 VP; 4 types: 5 VP; 5 types: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1041
+    },
+    {
+      "id": "b1042",
+      "name": "Forest Ranger",
+      "expansion": "Asia",
+      "condition": "Consecutive birds in forest with ascending or descending scores",
+      "description": "Each bird's score must be higher than the next. You can go right to left or left to right.",
+      "vp_text": "3 consecutive birds: 3 VP; 4 consecutive birds: 5 VP; 5 consecutive birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1042
+    },
+    {
+      "id": "b1043",
+      "name": "Grassland Population Monitor",
+      "expansion": "Asia",
+      "condition": "Different nest types in grassland",
+      "description": "You may count each star nest as any other type or as a fifth type.",
+      "vp_text": "2 to 3 types: 3 VP; 4 types: 5 VP; 5 types: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1043
+    },
+    {
+      "id": "b1044",
+      "name": "Grassland Ranger",
+      "expansion": "Asia",
+      "condition": "Consecutive birds in grassland with ascending or descending scores",
+      "description": "Each bird's score must be higher than the next. You can go right to left or left to right.",
+      "vp_text": "3 consecutive birds: 3 VP; 4 consecutive birds: 5 VP; 5 consecutive birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1044
+    },
+    {
+      "id": "b1045",
+      "name": "Pellet Dissector",
+      "expansion": "Asia",
+      "condition": "fish and rodent tokens cached on birds",
+      "description": "",
+      "vp_text": "2 to 3 cached: 3 VP; 4+ cached: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1045
+    },
+    {
+      "id": "b1046",
+      "name": "Small Clutch Specialist",
+      "expansion": "Asia",
+      "condition": "Birds with an egg limit of 2 or less",
+      "description": "You may include birds with no egg capacity.",
+      "vp_text": "5 to 7 birds: 3 VP; 8+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1046
+    },
+    {
+      "id": "b1047",
+      "name": "Wetland Population Monitor",
+      "expansion": "Asia",
+      "condition": "Different nest types in wetland",
+      "description": "You may count each star nest as any other type or as a fifth type.",
+      "vp_text": "2 to 3 types: 3 VP; 4 types: 5 VP; 5 types: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1047
+    },
+    {
+      "id": "b1048",
+      "name": "Wetland Ranger",
+      "expansion": "Asia",
+      "condition": "Consecutive birds in wetland with ascending or descending scores",
+      "description": "Each bird's score must be higher than the next. You can go right to left or left to right.",
+      "vp_text": "3 consecutive birds: 3 VP; 4 consecutive birds: 5 VP; 5 consecutive birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1048
+    },
+    {
+      "id": "b1049",
+      "name": "Winter Feeder",
+      "expansion": "Asia",
+      "condition": "Food remaining in your supply at game end",
+      "description": "",
+      "vp_text": "4 to 6 food: 4 VP; 7+ food: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1049
+    },
+    {
+      "id": "b1050",
+      "name": "automa Avid Asian Avian Admirer",
+      "expansion": "Asia",
+      "condition": "Difficulty Birds that are worth Eaglet 2 or 3 points Eagle 3 or 4 points Eagle-eyed Eagle 4 or 5 points",
+      "description": "",
+      "vp_text": "The Automa keeps up to 2 of them (lower value first)",
+      "scoring_type": "tiered",
+      "source_id": 1050
+    },
+    {
+      "id": "b1051",
+      "name": "automa Rare Species Lister",
+      "expansion": "Asia",
+      "condition": "Difficulty Birds that are worth Eaglet 4, 5, or 6 points Eagle 5, 6, or 7 points Eagle-eyed Eagle 6, 7, or 8 points",
+      "description": "",
+      "vp_text": "The Automa keeps the lowest valued one.",
+      "scoring_type": "tiered",
+      "source_id": 1051
+    },
+    {
+      "id": "b1000",
+      "name": "Anatomist",
+      "expansion": "Base Game",
+      "condition": "Birds with body parts in their names",
+      "description": "Body parts include beak, belly, bill, breast, cap, chin, collar, crest, crown, eye, face, head, neck, rump, shoulder, tail, throat, wing",
+      "vp_text": "2 to 3 birds: 3 VP; 4+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1000
+    },
+    {
+      "id": "b1001",
+      "name": "Backyard Birder",
+      "expansion": "Base Game",
+      "condition": "Birds worth less than 4 points",
+      "description": "",
+      "vp_text": "5 to 6 birds: 3 VP; 6+ birds: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1001
+    },
+    {
+      "id": "b1004",
+      "name": "Bird Counter",
+      "expansion": "Base Game",
+      "condition": "Birds with a flocking power",
+      "description": "",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1004
+    },
+    {
+      "id": "b1005",
+      "name": "Bird Feeder",
+      "expansion": "Base Game",
+      "condition": "Birds that eat seed",
+      "description": "",
+      "vp_text": "5 to 7 birds: 3 VP; 8+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1005
+    },
+    {
+      "id": "b1006",
+      "name": "Breeding Manager",
+      "expansion": "Base Game",
+      "condition": "Birds that have at least 4 eggs laid on them",
+      "description": "",
+      "vp_text": "1 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1006
+    },
+    {
+      "id": "b1007",
+      "name": "Cartographer",
+      "expansion": "Base Game",
+      "condition": "Birds with geography terms in their name",
+      "description": "Terms include American, Atlantic, Baltimore, California, Canada, Carolina, Chihuahua, Eastern, Inca, Mississippi, Mountain, Northern, Prairie, Sandhill, Savannah, Western",
+      "vp_text": "2 to 3 birds: 3 VP; 4+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1007
+    },
+    {
+      "id": "b1010",
+      "name": "Ecologist",
+      "expansion": "Base Game",
+      "condition": "Birds in your habitat with the fewest birds.",
+      "description": "Ties count.",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1010
+    },
+    {
+      "id": "b1011",
+      "name": "Enclosure Builder",
+      "expansion": "Base Game",
+      "condition": "Birds with ground-nest nests",
+      "description": "Birds must have a ground-nest or star-2 nest symbol.",
+      "vp_text": "4 to 5 birds: 4 VP; 6+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1011
+    },
+    {
+      "id": "b1013",
+      "name": "Falconer",
+      "expansion": "Base Game",
+      "condition": "Birds with a predator power",
+      "description": "",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1013
+    },
+    {
+      "id": "b1014",
+      "name": "Fishery Manager",
+      "expansion": "Base Game",
+      "condition": "Birds that eat fish",
+      "description": "",
+      "vp_text": "2 to 3 birds: 3 VP; 4+ birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1014
+    },
+    {
+      "id": "b1015",
+      "name": "Food Web Expert",
+      "expansion": "Base Game",
+      "condition": "Birds that eat only invertebrate",
+      "description": "",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1015
+    },
+    {
+      "id": "b1016",
+      "name": "Forester",
+      "expansion": "Base Game",
+      "condition": "Birds that can only live in forest",
+      "description": "",
+      "vp_text": "3 to 4 birds: 4 VP; 5 birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1016
+    },
+    {
+      "id": "b1017",
+      "name": "Historian",
+      "expansion": "Base Game",
+      "condition": "Birds named after a person",
+      "description": "Any bird with an 's in its name.",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1017
+    },
+    {
+      "id": "b1018",
+      "name": "Large Bird Specialist",
+      "expansion": "Base Game",
+      "condition": "Birds with wingspans over 65 cm",
+      "description": "",
+      "vp_text": "4 to 5 birds: 3 VP; 6+ birds: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1018
+    },
+    {
+      "id": "b1019",
+      "name": "Nest Box Builder",
+      "expansion": "Base Game",
+      "condition": "Birds with cavity-nest nests",
+      "description": "Birds must have a cavity-nest or star-2 nest symbol.",
+      "vp_text": "4 to 5 birds: 4 VP; 6+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1019
+    },
+    {
+      "id": "b1020",
+      "name": "Omnivore Specialist",
+      "expansion": "Base Game",
+      "condition": "Birds that eat food",
+      "description": "Any bird that specifically has a food symbol as part of its food cost.",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1020
+    },
+    {
+      "id": "b1021",
+      "name": "Oologist",
+      "expansion": "Base Game",
+      "condition": "Birds that have at least 1 egg laid on them",
+      "description": "",
+      "vp_text": "7 to 8 birds: 3 VP; 9+ birds: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1021
+    },
+    {
+      "id": "b1022",
+      "name": "Passerine Specialist",
+      "expansion": "Base Game",
+      "condition": "Birds with wingspans 30 cm or less",
+      "description": "",
+      "vp_text": "4 to 5 birds: 3 VP; 6+ birds: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1022
+    },
+    {
+      "id": "b1023",
+      "name": "Photographer",
+      "expansion": "Base Game",
+      "condition": "Birds with colors in their names",
+      "description": "Colors include ash, black, blue, bronze, brown, cerulean, chestnut, ferruginous, gold, gray, green, indigo, lazuli, purple, red, rose, roseate, ruby, ruddy, rufous, snowy, violet, white, yellow",
+      "vp_text": "4 to 5 birds: 3 VP; 6+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1023
+    },
+    {
+      "id": "b1024",
+      "name": "Platform Builder",
+      "expansion": "Base Game",
+      "condition": "Birds with platform-nest nests",
+      "description": "Birds must have a platform-nest or star-2 nest symbol.",
+      "vp_text": "4 to 5 birds: 4 VP; 6+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1024
+    },
+    {
+      "id": "b1025",
+      "name": "Prairie Manager",
+      "expansion": "Base Game",
+      "condition": "Birds that can only live in grassland",
+      "description": "",
+      "vp_text": "2 to 3 birds: 3 VP; 4+ birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1025
+    },
+    {
+      "id": "b1026",
+      "name": "Rodentologist",
+      "expansion": "Base Game",
+      "condition": "Birds that eat rodent",
+      "description": "",
+      "vp_text": "2 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1026
+    },
+    {
+      "id": "b1027",
+      "name": "Visionary Leader",
+      "expansion": "Base Game",
+      "condition": "Bird cards in hand at end of game",
+      "description": "",
+      "vp_text": "5 to 7 birds: 4 VP; 8+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1027
+    },
+    {
+      "id": "b1028",
+      "name": "Viticulturalist",
+      "expansion": "Base Game",
+      "condition": "Birds that eat fruit",
+      "description": "",
+      "vp_text": "2 to 3 birds: 3 VP; 4+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1028
+    },
+    {
+      "id": "b1029",
+      "name": "Wetland Scientist",
+      "expansion": "Base Game",
+      "condition": "Birds that can only live in wetland",
+      "description": "",
+      "vp_text": "3 to 4 birds: 3 VP; 5 birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1029
+    },
+    {
+      "id": "b1030",
+      "name": "Wildlife Gardener",
+      "expansion": "Base Game",
+      "condition": "Birds with bowl-nest nests",
+      "description": "Birds must have a bowl-nest or star-2 nest symbol.",
+      "vp_text": "4 to 5 birds: 4 VP; 6+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1030
+    },
+    {
+      "id": "b1031",
+      "name": "[Fan Made] Caprimulgiform Specialist",
+      "expansion": "Base Game",
+      "condition": "Birds of the orders Caprimulgiformes and Apodiformes",
+      "description": "Species include chuck-will's-widow, frogmouths, hummingbirds, nighthawks, nightjars, oilbird, owlet-nightjars, pauraque, poorwills, potoos, spinetails, swifts, swiftlets, treeswifts, whip-poor-wills",
+      "vp_text": "3 VP per bird",
+      "scoring_type": "per_item",
+      "source_id": 1031
+    },
+    {
+      "id": "b1002",
+      "name": "Behaviorist",
+      "expansion": "Europe",
+      "condition": "For each column that contains birds with 3 different power colors:",
+      "description": "Birds with no power count as white.",
+      "vp_text": "3 VP per column",
+      "scoring_type": "per_item",
+      "source_id": 1002
+    },
+    {
+      "id": "b1003",
+      "name": "Bird Bander",
+      "expansion": "Europe",
+      "condition": "Birds that can live in multiple habitats",
+      "description": "",
+      "vp_text": "4 to 5 birds: 4 VP; 6+ birds: 7 VP",
+      "scoring_type": "tiered",
+      "source_id": 1003
+    },
+    {
+      "id": "b1008",
+      "name": "Citizen Scientist",
+      "expansion": "Europe",
+      "condition": "Birds with tucked cards",
+      "description": "",
+      "vp_text": "4 to 6 birds: 3 VP; 7+ birds: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1008
+    },
+    {
+      "id": "b1009",
+      "name": "Diet Specialist",
+      "expansion": "Europe",
+      "condition": "Birds with a food cost of 3 food",
+      "description": "",
+      "vp_text": "2 to 3 birds: 3 VP; 4+ birds: 6 VP",
+      "scoring_type": "tiered",
+      "source_id": 1009
+    },
+    {
+      "id": "b1012",
+      "name": "Ethologist",
+      "expansion": "Europe",
+      "condition": "In any one habitat:",
+      "description": "Birds with no power count as white.",
+      "vp_text": "2 VP per power color",
+      "scoring_type": "per_item",
+      "source_id": 1012
+    },
+    {
+      "id": "b1032",
+      "name": "automa Autwitcher",
+      "expansion": "Europe",
+      "condition": "Birds that are worth 3 or 4 points",
+      "description": "",
+      "vp_text": "The automa keeps up to 2 of them (higher value first).",
+      "scoring_type": "tiered",
+      "source_id": 1032
+    },
+    {
+      "id": "b1033",
+      "name": "automa RASPB Life Fellow",
+      "expansion": "Europe",
+      "condition": "Birds that are worth 5, 6, or 7 points",
+      "description": "",
+      "vp_text": "The automa keeps the highest valued one.",
+      "scoring_type": "tiered",
+      "source_id": 1033
+    },
+    {
+      "id": "b1034",
+      "name": "Forest Data Analyst",
+      "expansion": "Oceania",
+      "condition": "Consecutive birds in forest with ascending or descending wingspans",
+      "description": "",
+      "vp_text": "3 consecutive birds: 3 VP; 4 consecutive birds: 5 VP; 5 consecutive birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1034
+    },
+    {
+      "id": "b1035",
+      "name": "Grassland Data Analyst",
+      "expansion": "Oceania",
+      "condition": "Consecutive birds in grassland with ascending or descending wingspans",
+      "description": "",
+      "vp_text": "3 consecutive birds: 3 VP; 4 consecutive birds: 5 VP; 5 consecutive birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1035
+    },
+    {
+      "id": "b1036",
+      "name": "Mechanical Engineer",
+      "expansion": "Oceania",
+      "condition": "Sets of the 4 nest types",
+      "description": "Each star nest can be treated as any 1 nest type. No card can be part of more than one set.",
+      "vp_text": "1 set = bowl-nest cavity-nest ground-nest platform-nest; one set: 3 VP; two sets: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1036
+    },
+    {
+      "id": "b1037",
+      "name": "Site Selection Expert",
+      "expansion": "Oceania",
+      "condition": "Columns with a matching pair or trio of nests",
+      "description": "Different columns may (but need not) score using different nest types. Star nests are wild, but each counts only once.",
+      "vp_text": "2 of the same nest in a column: 1 VP; 3 of the same nest in a column: 3 VP",
+      "scoring_type": "tiered",
+      "source_id": 1037
+    },
+    {
+      "id": "b1038",
+      "name": "Wetland Data Analyst",
+      "expansion": "Oceania",
+      "condition": "Consecutive birds in wetland with ascending or descending wingspans",
+      "description": "",
+      "vp_text": "3 consecutive birds: 3 VP; 4 consecutive birds: 5 VP; 5 consecutive birds: 8 VP",
+      "scoring_type": "tiered",
+      "source_id": 1038
+    }
+  ]
+}
