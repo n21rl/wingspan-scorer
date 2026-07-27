@@ -109,3 +109,8 @@ To point the app at a different database, set `WINGSPAN_DB`:
 ```bash
 WINGSPAN_DB=/tmp/scratch.db streamlit run app.py
 ```
+
+`WINGSPAN_IMAGES` does the same for uploaded player pictures. Unset, uploads go
+to `images/` beside the code. The deployment points it at the mounted volume,
+because a container's own filesystem is replaced on every deploy — pictures
+committed to the repository still ship in the image and are found from there.

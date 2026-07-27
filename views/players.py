@@ -7,37 +7,33 @@ from pathlib import Path
 import streamlit as st
 
 from views._shared import get_connection, player_chip
-from wingspan.db import ROOT
+from wingspan import avatars, repository
 from wingspan.model import Player
-from wingspan import repository
-
-IMAGES_DIR = ROOT / "images"
-DEFAULT_AVATAR = IMAGES_DIR / "_default.png"
 
 conn = get_connection()
 
 st.title("Players")
 
 
-def avatar_path(player: Player) -> Path:
-    """Resolve a stored avatar to a real file.
+def avatar_path(player: Player) -> Path | None:
+    """The player's picture, the placeholder, or None if neither is present."""
+    return avatars.resolve(player.avatar)
 
-    Avatars are stored as a bare filename under images/. The old app stored
-    Windows-style paths, which never resolved on any other platform and left
-    every player showing the placeholder.
+
+def show_avatar(player: Player, width: int, **kwargs) -> None:
+    """Render a picture only when there is a file behind it.
+
+    `st.image` opens the path itself and raises MediaFileStorageError if it is
+    not there, which takes the whole page down. A deployment that left the
+    images out should lose the pictures, not the page.
     """
-    if player.avatar:
-        candidate = IMAGES_DIR / Path(str(player.avatar).replace("\\", "/")).name
-        if candidate.exists():
-            return candidate
-    return DEFAULT_AVATAR
+    path = avatar_path(player)
+    if path is not None:
+        st.image(str(path), width=width, **kwargs)
 
 
 def save_avatar(player_id: str, upload) -> str:
-    IMAGES_DIR.mkdir(parents=True, exist_ok=True)
-    name = f"{player_id}_{Path(upload.name).name}"
-    (IMAGES_DIR / name).write_bytes(upload.getbuffer())
-    return name
+    return avatars.save(player_id, upload.name, upload.getbuffer())
 
 
 @st.dialog("Edit player")
@@ -48,8 +44,7 @@ def edit_player(player: Player) -> None:
             "Colour", value=player.color, help="Used for this player in every chart."
         )
         upload = st.file_uploader("Picture", type=["png", "jpg", "jpeg"])
-        if DEFAULT_AVATAR.exists() or player.avatar:
-            st.image(str(avatar_path(player)), width=72, caption="Current")
+        show_avatar(player, width=72, caption="Current")
 
         archived = st.checkbox(
             "Archived",
@@ -120,7 +115,7 @@ for player in players:
     with st.container(border=True):
         head, actions = st.columns([3, 2])
         with head:
-            st.image(str(avatar_path(player)), width=44)
+            show_avatar(player, width=44)
             st.markdown(
                 player_chip(f"**{player.name}**", player.color), unsafe_allow_html=True
             )

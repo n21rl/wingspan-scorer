@@ -141,6 +141,27 @@ def test_history_delete_can_be_dismissed(seeded_db):
     assert "deleted_game" not in app.session_state
 
 
+def test_players_page_survives_a_deployment_with_no_images(
+    seeded_db, tmp_path, monkeypatch
+):
+    """Regression: the Fly deployment was built without images/, so the
+    placeholder every player fell back to did not exist and st.image took the
+    page down with MediaFileStorageError."""
+    from wingspan import avatars
+
+    monkeypatch.setenv("WINGSPAN_IMAGES", str(tmp_path / "uploads"))
+    monkeypatch.setattr(avatars, "BUNDLED_DIR", tmp_path / "bundled")
+
+    conn = db.connect(seeded_db)
+    player = repository.list_players(conn)[0]
+    player.avatar = "not-deployed.png"
+    repository.save_player(conn, player)
+    conn.close()
+
+    app = run("views/players.py")
+    assert not app.exception, app.exception
+
+
 def test_settings_reports_the_recorded_game_count(seeded_db):
     app = run("views/settings.py")
     assert not app.exception

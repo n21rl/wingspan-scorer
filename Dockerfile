@@ -17,8 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# The SQLite file lives on a mounted volume so games survive a redeploy.
-ENV WINGSPAN_DB=/data/wingspan.db
+# The SQLite file and uploaded player pictures live on a mounted volume, so
+# both survive a redeploy -- the image's own filesystem does not. The pictures
+# committed to the repository still ship in the image at /app/images and are
+# found from there.
+ENV WINGSPAN_DB=/data/wingspan.db \
+    WINGSPAN_IMAGES=/data/images
 
 EXPOSE 8080
 
