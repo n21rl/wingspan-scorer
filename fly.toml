@@ -1,0 +1,36 @@
+app = "sparrows"
+primary_region = "ams"
+
+[build]
+
+[env]
+  WINGSPAN_DB = "/data/wingspan.db"
+
+# SQLite means exactly one machine: two machines would each get their own
+# volume and their own, diverging, copy of the games.
+[[mounts]]
+  source = "wingspan_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "connections"   # Streamlit holds a websocket open per session
+    soft_limit = 20
+    hard_limit = 25
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/_stcore/health"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
