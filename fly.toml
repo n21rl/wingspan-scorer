@@ -11,6 +11,10 @@ primary_region = "ams"
 [[mounts]]
   source = "wingspan_data"
   destination = "/data"
+  # Lets the deploy create the volume itself, so this needs no flyctl. Only
+  # applies when the app has no Machines yet -- an existing Machine keeps the
+  # volume it already has.
+  initial_size = "1gb"
 
 [http_service]
   internal_port = 8080
@@ -33,4 +37,4 @@ primary_region = "ams"
 
 [[vm]]
   size = "shared-cpu-1x"
-  memory = "512mb"
+  memory = "1gb"   # pandas and altair alone are a few hundred MB resident
