@@ -9,7 +9,6 @@ venv/
 *.egg-info/
 .DS_Store
 tests/
-images/
 exports/
 data/*.db
 data/*.db-journal

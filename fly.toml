@@ -10,6 +10,7 @@ primary_region = 'ams'
 
 [env]
   WINGSPAN_DB = '/data/wingspan.db'
+  WINGSPAN_IMAGES = '/data/images'
 
 [[mounts]]
   source = 'wingspan_data'
