@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import os
 import sqlite3
 from pathlib import Path
@@ -168,14 +169,66 @@ def connect(path: str | os.PathLike[str] | None = None) -> sqlite3.Connection:
 #: How long a soft-deleted game stays recoverable before it is really gone.
 DELETE_GRACE_DAYS = 30
 
+#: app_settings key holding the last-synced catalogue fingerprint. Underscore
+#: prefix marks it as internal bookkeeping, not a user-facing setting like the
+#: ones repository.get_setting/set_setting deal in.
+_CATALOGUE_FINGERPRINT_KEY = "_catalogue_fingerprint"
 
-def sync_catalogues(conn: sqlite3.Connection) -> None:
-    """Mirror the JSON catalogues into their tables.
 
-    Reference data, refreshed on every connect, so regenerating the JSON and
-    restarting is enough to pick up new tiles or cards -- no migration needed.
+def _catalogue_fingerprint() -> str:
+    """Content hash of the two source JSON files.
+
+    Hashed content rather than mtime/size: a Docker image rebuild resets
+    mtimes and a volume restore can shuffle them, so either signal would
+    trigger spurious resyncs -- or worse, miss a real change -- for reasons
+    that have nothing to do with the catalogue actually changing.
     """
     from wingspan import catalogue  # late: catalogue imports ROOT from here
+
+    digest = hashlib.sha256()
+    for path in (catalogue.GOAL_TILES_PATH, catalogue.BONUS_CARDS_PATH):
+        digest.update(path.read_bytes() if path.exists() else b"")
+        digest.update(b"\0")  # separator: a byte moved across the file boundary must still change the hash
+    return digest.hexdigest()
+
+
+def _catalogues_present(conn: sqlite3.Connection) -> bool:
+    """Whether both catalogue tables actually hold rows.
+
+    Checked alongside the fingerprint because the fingerprint only says what
+    the JSON looked like last time, not that the rows survived. A future
+    migration that rebuilds either table would otherwise leave it empty
+    forever -- the hash would still match, the sync would keep skipping, and
+    every goal and card would silently render as its raw id.
+    """
+    row = conn.execute(
+        """
+        SELECT (SELECT COUNT(*) FROM goal_tiles) AS tiles,
+               (SELECT COUNT(*) FROM bonus_cards) AS cards
+        """
+    ).fetchone()
+    return bool(row["tiles"]) and bool(row["cards"])
+
+
+def sync_catalogues(conn: sqlite3.Connection) -> None:
+    """Mirror the JSON catalogues into their tables, unless nothing changed.
+
+    Reference data, checked on every connect, so regenerating the JSON and
+    restarting is enough to pick up new tiles or cards -- no migration needed.
+    The 117 upserts this used to always run sat in the critical path of every
+    cold start on Fly.io (machines suspend when idle), almost always to
+    rewrite rows with the values they already had -- so we skip the work
+    entirely when the source JSON's content hash matches the one stored from
+    the last sync.
+    """
+    from wingspan import catalogue  # late: catalogue imports ROOT from here
+
+    fingerprint = _catalogue_fingerprint()
+    row = conn.execute(
+        "SELECT value FROM app_settings WHERE key = ?", (_CATALOGUE_FINGERPRINT_KEY,)
+    ).fetchone()
+    if row is not None and row["value"] == fingerprint and _catalogues_present(conn):
+        return
 
     conn.execute("BEGIN")
     try:
@@ -222,6 +275,16 @@ def sync_catalogues(conn: sqlite3.Connection) -> None:
                     card.scoring_type,
                 ),
             )
+        # Recorded inside the same transaction as the upserts: a crash
+        # mid-sync must not leave a stored fingerprint that claims rows were
+        # written when they weren't.
+        conn.execute(
+            """
+            INSERT INTO app_settings (key, value) VALUES (?, ?)
+            ON CONFLICT(key) DO UPDATE SET value = excluded.value
+            """,
+            (_CATALOGUE_FINGERPRINT_KEY, fingerprint),
+        )
         conn.execute("COMMIT")
     except Exception:
         conn.execute("ROLLBACK")
