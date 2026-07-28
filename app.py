@@ -5,6 +5,8 @@ Run with:  streamlit run app.py
 
 import streamlit as st
 
+from wingspan.auth import require_passphrase
+
 st.set_page_config(
     page_title="Wingspan Scores",
     page_icon="🐦",
@@ -42,6 +44,11 @@ st.html(
     </style>
     """
 )
+
+# No-op unless WINGSPAN_PASSPHRASE is set; see wingspan/auth.py for what this
+# does and does not protect. Deliberately after the CSS above: the passphrase
+# field is an input like any other, and needs the same 16px treatment.
+require_passphrase()
 
 pages = [
     st.Page(

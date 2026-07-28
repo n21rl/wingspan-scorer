@@ -107,6 +107,7 @@ def add_player() -> None:
 
 
 players = repository.list_players(conn, include_archived=True)
+game_counts = repository.game_counts_by_player(conn)
 
 if not players:
     st.caption("No players yet. Add the people you play with to start recording games.")
@@ -119,7 +120,7 @@ for player in players:
             st.markdown(
                 player_chip(f"**{player.name}**", player.color), unsafe_allow_html=True
             )
-            played = repository.player_game_count(conn, player.id)
+            played = game_counts.get(player.id, 0)
             suffix = " · archived" if player.archived else ""
             st.caption(f"{played} game(s){suffix}")
 

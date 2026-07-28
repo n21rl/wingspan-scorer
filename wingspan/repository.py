@@ -99,6 +99,20 @@ def player_game_count(conn: sqlite3.Connection, player_id: str) -> int:
     return int(row["n"])
 
 
+def game_counts_by_player(conn: sqlite3.Connection) -> dict[str, int]:
+    """Every player's game count in one query, for views that need them all.
+
+    Matches `player_game_count`'s semantics exactly -- every `game_players`
+    row counts, soft-deleted games included -- so switching a call site from
+    one to the other doesn't change what's on screen. Players with zero games
+    are simply absent from the result rather than mapped to 0.
+    """
+    rows = conn.execute(
+        "SELECT player_id, COUNT(*) AS n FROM game_players GROUP BY player_id"
+    ).fetchall()
+    return {row["player_id"]: int(row["n"]) for row in rows}
+
+
 def delete_player(conn: sqlite3.Connection, player_id: str) -> bool:
     """Remove a player outright. Refuses once they appear in a game.
 
@@ -251,10 +265,102 @@ def load_game(
     if row is None:
         return None
     # Totals are a cache, so an edit session starts from derived values.
-    return _hydrate_game(conn, row).recompute()
+    return _hydrate_games(conn, [row])[0].recompute()
 
 
-def _hydrate_game(conn: sqlite3.Connection, row: sqlite3.Row) -> Game:
+# SQLite's default build caps a statement at 999 bound parameters, so a
+# `WHERE game_id IN (...)` for a very large batch has to be split into
+# chunks rather than issued as one query.
+_SQLITE_MAX_VARIABLES = 900
+
+
+def _fetch_by_game_ids(
+    conn: sqlite3.Connection, sql_template: str, game_ids: list[str]
+) -> list[sqlite3.Row]:
+    """Run `sql_template` (with a `{placeholders}` slot) once per chunk of ids."""
+    rows: list[sqlite3.Row] = []
+    for start in range(0, len(game_ids), _SQLITE_MAX_VARIABLES):
+        chunk = game_ids[start : start + _SQLITE_MAX_VARIABLES]
+        placeholders = ", ".join("?" for _ in chunk)
+        rows.extend(
+            conn.execute(sql_template.format(placeholders=placeholders), chunk).fetchall()
+        )
+    return rows
+
+
+def _hydrate_games(conn: sqlite3.Connection, rows: list[sqlite3.Row]) -> list[Game]:
+    """Attach every game's children with four queries total, not four per game.
+
+    `load_game` routes its single row through here too, so the row->Game
+    construction logic lives in one place instead of two copies drifting apart.
+    """
+    if not rows:
+        return []
+
+    game_ids = [row["id"] for row in rows]
+
+    bonus_by_game: dict[str, dict[str, list[BonusCardScore]]] = {}
+    for bonus_row in _fetch_by_game_ids(
+        conn,
+        """
+        SELECT game_id, player_id, bonus_card_id, points
+        FROM player_bonus_cards WHERE game_id IN ({placeholders})
+        ORDER BY bonus_card_id
+        """,
+        game_ids,
+    ):
+        bonus_by_game.setdefault(bonus_row["game_id"], {}).setdefault(
+            bonus_row["player_id"], []
+        ).append(
+            BonusCardScore(
+                bonus_card_id=bonus_row["bonus_card_id"], points=bonus_row["points"]
+            )
+        )
+
+    scores_by_game: dict[str, list[sqlite3.Row]] = {}
+    for score_row in _fetch_by_game_ids(
+        conn,
+        "SELECT * FROM game_players WHERE game_id IN ({placeholders}) ORDER BY game_id, seat",
+        game_ids,
+    ):
+        scores_by_game.setdefault(score_row["game_id"], []).append(score_row)
+
+    goals_by_game: dict[str, list[sqlite3.Row]] = {}
+    for goal_row in _fetch_by_game_ids(
+        conn,
+        "SELECT game_id, round_no, goal_tile_id FROM game_goals WHERE game_id IN ({placeholders})",
+        game_ids,
+    ):
+        goals_by_game.setdefault(goal_row["game_id"], []).append(goal_row)
+
+    results_by_game: dict[str, list[sqlite3.Row]] = {}
+    for result_row in _fetch_by_game_ids(
+        conn,
+        "SELECT * FROM player_goal_scores WHERE game_id IN ({placeholders})",
+        game_ids,
+    ):
+        results_by_game.setdefault(result_row["game_id"], []).append(result_row)
+
+    return [
+        _build_game(
+            row,
+            bonus_by_game.get(row["id"], {}),
+            scores_by_game.get(row["id"], []),
+            goals_by_game.get(row["id"], []),
+            results_by_game.get(row["id"], []),
+        )
+        for row in rows
+    ]
+
+
+def _build_game(
+    row: sqlite3.Row,
+    bonus_by_player: dict[str, list[BonusCardScore]],
+    score_rows: list[sqlite3.Row],
+    goal_rows: list[sqlite3.Row],
+    result_rows: list[sqlite3.Row],
+) -> Game:
+    """Assemble one Game from a game row plus its already-fetched children."""
     expansions = tuple(
         Expansion(e) for e in (row["expansions"] or "").split(",") if e
     ) or (Expansion.BASE,)
@@ -269,23 +375,7 @@ def _hydrate_game(conn: sqlite3.Connection, row: sqlite3.Row) -> Game:
         notes=row["notes"] or "",
     )
 
-    bonus_rows: dict[str, list[BonusCardScore]] = {}
-    for bonus_row in conn.execute(
-        """
-        SELECT player_id, bonus_card_id, points
-        FROM player_bonus_cards WHERE game_id = ? ORDER BY bonus_card_id
-        """,
-        (game.id,),
-    ):
-        bonus_rows.setdefault(bonus_row["player_id"], []).append(
-            BonusCardScore(
-                bonus_card_id=bonus_row["bonus_card_id"], points=bonus_row["points"]
-            )
-        )
-
-    for score_row in conn.execute(
-        "SELECT * FROM game_players WHERE game_id = ? ORDER BY seat", (game.id,)
-    ):
+    for score_row in score_rows:
         game.scores.append(
             PlayerScore(
                 player_id=score_row["player_id"],
@@ -293,19 +383,15 @@ def _hydrate_game(conn: sqlite3.Connection, row: sqlite3.Row) -> Game:
                 values={k: score_row[k] for k in CATEGORY_KEYS},
                 goal_points=score_row["goal_points"],
                 goal_points_manual=bool(score_row["goal_points_manual"]),
-                bonus_card_scores=bonus_rows.get(score_row["player_id"], []),
+                bonus_card_scores=bonus_by_player.get(score_row["player_id"], []),
                 total=score_row["total"],
             )
         )
 
-    for goal_row in conn.execute(
-        "SELECT round_no, goal_tile_id FROM game_goals WHERE game_id = ?", (game.id,)
-    ):
+    for goal_row in goal_rows:
         game.round_goals[goal_row["round_no"]] = goal_row["goal_tile_id"]
 
-    for result_row in conn.execute(
-        "SELECT * FROM player_goal_scores WHERE game_id = ?", (game.id,)
-    ):
+    for result_row in result_rows:
         game.round_results.setdefault(result_row["round_no"], {})[
             result_row["player_id"]
         ] = RoundResult(
@@ -320,14 +406,32 @@ def _hydrate_game(conn: sqlite3.Connection, row: sqlite3.Row) -> Game:
 def list_games(
     conn: sqlite3.Connection, limit: int | None = None, include_deleted: bool = False
 ) -> list[Game]:
-    """Most recent first. Soft-deleted games are hidden unless asked for."""
+    """Most recent first. Soft-deleted games are hidden unless asked for.
+
+    Hydrates the whole page in a constant number of queries -- one for the
+    games plus one per child table -- rather than four queries per game.
+    """
     sql = "SELECT * FROM games"
     if not include_deleted:
         sql += " WHERE deleted_at IS NULL"
     sql += " ORDER BY played_on DESC, created_at DESC"
     if limit:
         sql += f" LIMIT {int(limit)}"
-    return [_hydrate_game(conn, row).recompute() for row in conn.execute(sql).fetchall()]
+    rows = conn.execute(sql).fetchall()
+    return [game.recompute() for game in _hydrate_games(conn, rows)]
+
+
+def list_deleted_games(conn: sqlite3.Connection) -> list[Game]:
+    """Games sitting in the soft-delete bin, most recently played first.
+
+    A dedicated query rather than filtering `list_games(include_deleted=True)`
+    against `list_games()` -- that pattern hydrates every game in the database
+    twice just to find the handful that are deleted.
+    """
+    rows = conn.execute(
+        "SELECT * FROM games WHERE deleted_at IS NOT NULL ORDER BY played_on DESC, created_at DESC"
+    ).fetchall()
+    return [game.recompute() for game in _hydrate_games(conn, rows)]
 
 
 def count_games(conn: sqlite3.Connection, include_deleted: bool = False) -> int:
@@ -501,9 +605,11 @@ __all__ = [
     "restore_game",
     "delete_player",
     "ensure_player",
+    "game_counts_by_player",
     "get_player",
     "get_player_by_name",
     "get_setting",
+    "list_deleted_games",
     "list_games",
     "list_players",
     "load_game",

@@ -122,8 +122,7 @@ st.divider()
 
 # ---------------------------------------------------------------------- deleted bin
 
-deleted = repository.list_games(conn, include_deleted=True)
-deleted = [g for g in deleted if g.id not in {x.id for x in repository.list_games(conn)}]
+deleted = repository.list_deleted_games(conn)
 
 st.subheader("Recently deleted")
 if not deleted:
