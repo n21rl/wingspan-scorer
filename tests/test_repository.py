@@ -205,3 +205,74 @@ def test_list_games_is_most_recent_first(conn, players, sample_game):
 
     ids = [g.id for g in repository.list_games(conn)]
     assert ids == [sample_game.id, older.id]
+
+
+def test_list_games_batch_matches_individually_loaded_games(conn, players):
+    """The batch path in list_games must build the same Games as load_game.
+
+    Games are deliberately uneven -- different player counts, some with no
+    round goals or bonus cards -- so a bug that mixed up one game's children
+    with another's, or dropped a game with no rows in a child table, would
+    show up here.
+    """
+    ant, polly = players
+    games = []
+    for i in range(5):
+        game = Game.new(date(2025, 1, i + 1))
+        if i % 2 == 0:
+            game.scores = [
+                build_score(ant.id, seat=0, birds=10 + i, bonus={"b1000": 3}),
+                build_score(polly.id, seat=1, birds=5 + i),
+            ]
+            game.round_goals = {1: "g2000"}
+            game.round_results = {1: {ant.id: RoundResult(placement=1)}}
+        else:
+            # No round goals, no bonus cards -- these games have empty
+            # children in three of the four child tables.
+            game.scores = [build_score(ant.id, seat=0, birds=i)]
+        games.append(game.recompute())
+    repository.save_games(conn, games)
+
+    listed = {g.id: g for g in repository.list_games(conn)}
+    assert len(listed) == 5
+
+    for game in games:
+        individually = repository.load_game(conn, game.id)
+        batched = listed[game.id]
+        assert [s.player_id for s in batched.scores] == [
+            s.player_id for s in individually.scores
+        ]
+        assert [s.total for s in batched.scores] == [s.total for s in individually.scores]
+        assert [s.bonus_card_scores for s in batched.scores] == [
+            s.bonus_card_scores for s in individually.scores
+        ]
+        assert batched.round_goals == individually.round_goals
+        assert batched.round_results == individually.round_results
+
+
+def test_list_deleted_games_returns_only_soft_deleted(conn, players, sample_game):
+    ant, _ = players
+    kept = Game.new(date(2025, 2, 1))
+    kept.scores = [build_score(ant.id, birds=3)]
+    repository.save_games(conn, [sample_game, kept])
+    repository.delete_game(conn, sample_game.id)
+
+    deleted = repository.list_deleted_games(conn)
+    assert [g.id for g in deleted] == [sample_game.id]
+
+    # The live list is unaffected.
+    assert [g.id for g in repository.list_games(conn)] == [kept.id]
+
+
+def test_game_counts_by_player_matches_player_game_count(conn, players, sample_game):
+    ant, polly = players
+    repository.save_game(conn, sample_game)
+
+    counts = repository.game_counts_by_player(conn)
+    assert counts[ant.id] == repository.player_game_count(conn, ant.id)
+    assert counts[polly.id] == repository.player_game_count(conn, polly.id)
+
+    # A player nobody has recorded a game for is simply absent, not 0.
+    lonely = repository.save_player(conn, Player.new("Lonely"))
+    assert lonely.id not in repository.game_counts_by_player(conn)
+    assert repository.player_game_count(conn, lonely.id) == 0
